@@ -1,0 +1,37 @@
+{
+  "name": "openjudge-helper",
+  "version": "1.0.0",
+  "description": "A helper to parse online open judge's problems into TypeScript objects.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HuajiStudio/openjudge-helper.git"
+  },
+  "keywords": [
+    "openjudge",
+    "helper",
+    "parser"
+  ],
+  "author": "Lasm_Gratel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HuajiStudio/openjudge-helper/issues"
+  },
+  "homepage": "https://github.com/HuajiStudio/openjudge-helper#readme",
+  "devDependencies": {
+    "@types/bluebird": "^3.5.11",
+    "@types/cheerio": "^0.22.2",
+    "@types/mongodb": "^2.2.11",
+    "@types/node": "^8.0.28",
+    "@types/request": "^2.0.3",
+    "typescript": "^2.5.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.81.0"
+  }
+}
