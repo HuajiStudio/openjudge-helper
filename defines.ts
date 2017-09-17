@@ -16,7 +16,3 @@ export interface Parser {
 export interface Requester {
     query(id: Number): Promise<string>;
 }
-
-export interface StringCallback {
-    (str: string): void;
-}

@@ -1,5 +1,4 @@
 import * as request from 'request';
-import * as Promise from 'bluebird';
 import * as cheerio from 'cheerio';
 import { Requester, Parser, Problem } from './index';
 
@@ -103,7 +102,66 @@ export class LuoguParser implements Parser {
         else
             return "";
     }
+}
 
+/**
+ * 登录到洛谷.
+ * @param username 用户名
+ * @param password 密码
+ * @param twoFactor 两步验证
+ * @param onsuccess __client_id Cookie回调
+ */
+export function authLuogu(username: string, password: string, twoFactor = "", onsuccess: FunctionStringCallback): void {
+    let j = request.jar();
+    request.post(
+        {
+            url: "https://www.luogu.org/login/loginpage",
+            formData: {
+                username: username,
+                password: password,
+                cookie: 3,
+                twoFactor: twoFactor
+            },
+            jar: j,
+            encoding: 'utf8'
+        },
+        function (error, response, body) {
+            if (response.statusCode === 200) {
+                j.getCookieString(".luogu.org").split("&").forEach(function (str: string) {
+                    if (str.startsWith("__client_id"))
+                        onsuccess(str.split("=")[1]);
+                });
+            }
+        }
+    );
+}
+
+/**
+ * 提交一次评测.
+ * @param id 题目id
+ * @param data 代码
+ * @param onsuccess rid回调
+ */
+export function submitLuogu(id: Number, data: string, onsuccess: FunctionStringCallback) { // TODO Add language option
+    request.get(
+        {
+            url: 'https://www.luogu.org/problem/ajax_submit',
+            formData: {
+                lang: 0,
+                code: data,
+                pid: id
+            },
+            encoding: 'utf8'
+        },
+        function (error, response, body) {
+            if (response.statusCode === 200) {
+                var back = JSON.parse(body);
+                if (back.code === 200) {
+                    onsuccess(back.more.rid);
+                }
+            }
+        }
+    );
 }
 
 function cleanArray(actual: Array<any>) {

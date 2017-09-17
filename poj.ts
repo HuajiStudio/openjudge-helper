@@ -1,5 +1,4 @@
 import * as request from 'request';
-import * as Promise from 'bluebird';
 import * as cheerio from 'cheerio';
 import { Requester, Parser, Problem } from './index';
 
